@@ -1,0 +1,79 @@
+
+---
+
+## 📄 `dist/test-page.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShieldMark - Local Test Page</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #f1f5f9; color: #0f172a; }
+  header { background: #0f172a; color: #fff; padding: 16px 24px; font-weight: 700; }
+  main { max-width: 800px; margin: 24px auto; padding: 0 16px; }
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .top-ad, .sidebar_ads, .ad-banner, .promo { background: #fee2e2; color: #b91c1c; border: 2px dashed #ef4444; padding: 24px; text-align: center; font-weight: 700; margin: 12px 0; }
+  ins.adsbygoogle { display: block; background: #fef3c7; border: 2px dashed #f59e0b; color: #92400e; padding: 24px; text-align: center; font-weight: 700; margin: 12px 0; }
+  #adblock-nag { position: fixed; inset: 0; background: rgba(15,23,42,.95); display: flex; align-items: center; justify-content: center; z-index: 99999; }
+  #adblock-nag .inner { background: #fff; padding: 32px; border-radius: 16px; max-width: 420px; text-align: center; }
+  button { background: #1d4ed8; color: #fff; border: 0; border-radius: 8px; padding: 10px 16px; font-weight: 600; cursor: pointer; }
+  a.external { color: #1d4ed8; }
+</style>
+</head>
+<body>
+<header>🧪 ShieldMark Test Page</header>
+<main>
+  <div class="card">
+    <h2>1. Banner ads (should vanish)</h2>
+    <div class="top-ad banner">ADVERTISEMENT — 728×90</div>
+    <div class="ad-banner">SPONSORED BANNER</div>
+    <div class="promo">PROMO BOX</div>
+  </div>
+
+  <div class="card">
+    <h2>2. Google-style ad unit (should vanish)</h2>
+    <ins class="adsbygoogle" data-ad-slot="1234567890">GOOGLE ADSENSE SLOT</ins>
+  </div>
+
+  <div class="card">
+    <h2>3. Ad-network iframe (should vanish)</h2>
+    <iframe src="https://doubleclick.net/fake-ad-frame" width="300" height="150" style="border:2px dashed #ef4444"></iframe>
+  </div>
+
+  <div class="card">
+    <h2>4. Popunder test (click → popup should be blocked)</h2>
+    <button onclick="window.open('https://example.com/popunder-ad','_blank')">Click me (tries to open popup)</button>
+  </div>
+
+  <div class="card">
+    <h2>5. External link (should show the guard prompt)</h2>
+    <p><a class="external" href="https://example.com/some/deep/link?utm_source=sketchy">Visit example.com</a></p>
+    <p>Same-site links like <a href="#top">this anchor</a> pass through untouched.</p>
+  </div>
+
+  <div class="card">
+    <h2>6. Content safety check (must NOT vanish)</h2>
+    <p class="ad" style="background:#dcfce7;border:2px dashed #22c55e;padding:16px;">
+      This paragraph has class "ad" but contains a lot of real article text, well over
+      four hundred characters, which is exactly the ShieldMark safety threshold. It
+      should survive the sweep because ShieldMark checks text length before zapping,
+      so genuine content is never removed even if its class name looks ad-ish. This
+      sentence exists purely to push the character count above the limit and prove
+      the content filter works as intended every single time you run this test page.
+    </p>
+  </div>
+</main>
+
+<div id="adblock-nag">
+  <div class="inner">
+    <h2>😢 Ad blocker detected!</h2>
+    <p>Please disable your ad blocker to continue. We need ads to survive.</p>
+    <button onclick="document.getElementById('adblock-nag').remove()">Okay, fine</button>
+  </div>
+</div>
+
+</body>
+</html>
