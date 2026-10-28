@@ -45,8 +45,15 @@ to external sites.
 - **Benchmark**: run it on &lt;https://canyoublockit.com&gt; in **Advanced Mode**.
 - Debug any page from DevTools console: `__SHIELDMARK__.log` shows the last 200
   zaps with reasons.
-
+  
 ## 🔧 Build from source
 
 ```bash
 python build.py
+```
+
+## Installing Code
+**Copy This Text to Put in the URL**:
+
+```bash
+javascript:(function () { if (window.__SHIELDMARK__) return; var s = document.createElement('script'); s.src = 'https://raw.githack.com/aomsinjaroensuk15-stack/ads-blocker/main/bookmarklet.js?t=' + Date.now(); (document.body || document.documentElement).appendChild(s); })();
